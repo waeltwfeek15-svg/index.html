@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>وزير التكييفات | أسيوط والمنيا</title>
+    
+    <!-- استدعاء خط "القاهرة" -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    
+    <!-- استدعاء Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- استدعاء FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        // ==========================================
+        // بياناتك
+        // ==========================================
+        const myPhoneNumber = "01014179945"; 
+        const myWhatsappNumber = "201014179945"; 
+        // ==========================================
+        
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Cairo', 'sans-serif'] },
+                    colors: {
+                        brand: {
+                            50: '#f0f9ff', 100: '#e0f2fe', 500: '#0ea5e9', 
+                            600: '#0284c7', 700: '#0369a1', 900: '#0c4a6e',
+                        }
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        .hover-scale { transition: transform 0.3s ease; }
+        .hover-scale:hover { transform: translateY(-5px); }
+        .whatsapp-float {
+            position: fixed; width: 60px; height: 60px; bottom: 40px; left: 40px;
+            background-color: #25d366; color: #FFF; border-radius: 50px;
+            text-align: center; font-size: 30px; box-shadow: 2px 2px 3px #999;
+            z-index: 100; display: flex; align-items: center; justify-content: center;
+            transition: all 0.3s ease;
+        }
+        .whatsapp-float:hover { background-color: #128c7e; transform: scale(1.1); }
+        
+        /* تنسيق التبويبات (Tabs) */
+        .tab-btn {
+            cursor: pointer;
+            padding: 10px 20px;
+            border-radius: 9999px;
+            font-weight: bold;
+            transition: all 0.3s;
+            border: 2px solid #e5e7eb;
+            white-space: nowrap;
+        }
+        .tab-btn.active {
+            background-color: #0ea5e9;
+            color: white;
+            border-color: #0ea5e9;
+            box-shadow: 0 4px 6px -1px rgba(14, 165, 233, 0.4);
+        }
+        
+        /* تنسيق كارت المنتج */
+        .product-card {
+            background: white;
+            border: 1px solid #eee;
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+        .product-card:hover {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            transform: translateY(-5px);
+            border-color: #0ea5e9;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans text-gray-800 pt-10">
+
+    <!-- شريط تنبيه الموقع الجغرافي -->
+    <div class="bg-red-600 text-white text-center py-2 font-bold fixed top-0 w-full z-[60] shadow-md animate-pulse-slow">
+        <i class="fa-solid fa-location-dot ml-2"></i> نخدم محافظتي أسيوط والمنيا - والتوصيل لحد باب البيت
+    </div>
+
+    <!-- Navbar -->
+    <nav class="bg-white shadow-md fixed w-full z-50 top-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20 items-center">
+                <div class="flex-shrink-0 flex items-center gap-2">
+                    <i class="fa-solid fa-snowflake text-brand-600 text-3xl"></i>
+                    <span class="font-black text-2xl text-brand-900">وزير التكييفات</span>
+                </div>
+                
+                <div class="hidden md:flex space-x-8 space-x-reverse items-center">
+                    <a href="#home" class="text-gray-700 hover:text-brand-600 font-bold transition">الرئيسية</a>
+                    <a href="#products" class="text-gray-700 hover:text-brand-600 font-bold transition">الكتالوج والأسعار</a>
+                    <a href="#services" class="text-gray-700 hover:text-brand-600 font-bold transition">خدماتنا</a>
+                    <a id="navCallBtn" href="#" class="bg-brand-600 text-white px-5 py-2 rounded-full font-bold hover:bg-brand-700 transition shadow-lg">
+                        <i class="fa-solid fa-phone ml-2"></i> اتصل الآن
+                    </a>
+                </div>
+
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-gray-700 hover:text-brand-600 focus:outline-none">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t">
+            <a href="#home" class="block py-3 px-4 text-gray-700 hover:bg-brand-50 hover:text-brand-600 font-bold border-b">الرئيسية</a>
+            <a href="#products" class="block py-3 px-4 text-gray-700 hover:bg-brand-50 hover:text-brand-600 font-bold border-b">الكتالوج والأسعار</a>
+            <a href="#services" class="block py-3 px-4 text-gray-700 hover:bg-brand-50 hover:text-brand-600 font-bold border-b">خدماتنا</a>
+            <a href="#contact" class="block py-3 px-4 text-brand-600 font-bold bg-brand-50">اتصل بنا</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="pt-32 pb-20 bg-gradient-to-br from-brand-900 via-brand-700 to-brand-500 text-white relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 flex flex-col-reverse lg:flex-row items-center">
+            <div class="lg:w-1/2 text-center lg:text-right mt-10 lg:mt-0">
+                <div class="inline-block bg-yellow-400 text-brand-900 font-bold px-4 py-1 rounded-full mb-4 text-sm shadow-lg">
+                    <i class="fa-solid fa-truck-fast ml-1"></i> متاحين في أسيوط والمنيا
+                </div>
+                <h1 class="text-4xl lg:text-6xl font-black mb-6 leading-tight">
+                    الحر محتاج <br/> <span class="text-yellow-400">وزير التكييفات</span>
+                </h1>
+                <p class="text-xl lg:text-2xl mb-8 text-brand-100 font-light">
+                    صيانة، تركيب، وتنظيف جميع أنواع التكييفات.
+                    <br>
+                    <span class="font-bold text-white border-b-2 border-yellow-400 pb-1">بنجيلك لحد باب البيت في أي مكان في أسيوط أو المنيا.</span>
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                    <a id="heroWaBtn" href="#" class="bg-yellow-400 text-brand-900 px-8 py-4 rounded-full font-bold text-lg hover:bg-yellow-300 transition shadow-lg flex items-center justify-center">
+                        <i class="fa-brands fa-whatsapp ml-2 text-2xl"></i> احجز واتساب
+                    </a>
+                    <a id="heroCallBtn" href="#" class="bg-transparent border-2 border-white text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-white hover:text-brand-900 transition flex items-center justify-center">
+                        <i class="fa-solid fa-phone ml-2"></i> اتصل فوراً
+                    </a>
+                </div>
+            </div>
+            <div class="lg:w-1/2 flex justify-center">
+                <img src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?q=80&w=2069&auto=format&fit=crop" alt="Air Conditioner Technician" class="rounded-3xl shadow-2xl border-4 border-white/20 w-full max-w-md object-cover h-80 lg:h-96">
+            </div>
+        </div>
+    </section>
+
+    <!-- كتالوج المنتجات الذكي (Product Catalog) -->
+    <section id="products" class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-10">
+                <h2 class="text-3xl lg:text-4xl font-black text-brand-900 mb-4">الكتالوج والأسعار</h2>
+                <p class="text-gray-600 text-lg">اختار الماركة وشوف الموديلات المتاحة (عادي وانفرتر)</p>
+            </div>
+
+            <!-- شريط اختيار الماركة -->
+            <div class="flex flex-wrap justify-center gap-3 mb-10" id="brandTabs">
+                <!-- سيتم ملؤها بالجافاسكريبت -->
+            </div>
+
+            <!-- شبكة المنتجات -->
+            <div id="productsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- المنتجات ستظهر هنا -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl lg:text-4xl font-black text-brand-900 mb-4">خدماتنا</h2>
+                <div class="w-24 h-1 bg-brand-500 mx-auto rounded-full"></div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- التوصيل للمنازل -->
+                <div class="bg-brand-50 p-8 rounded-2xl border-2 border-brand-200 shadow-sm hover:shadow-xl hover-scale text-center group transition">
+                    <div class="w-16 h-16 bg-brand-100 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-brand-500 transition">
+                        <i class="fa-solid fa-truck-ramp-box text-2xl text-brand-600 group-hover:text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-brand-900 mb-3">توصيل منزلي</h3>
+                    <p class="text-sm text-gray-600">خدمة التوصيل لحد باب البيت في جميع مراكز أسيوط والمنيا.</p>
+                </div>
+                <!-- باقي الخدمات -->
+                <div class="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl hover-scale text-center group transition">
+                    <div class="w-16 h-16 bg-brand-100 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-brand-500 transition">
+                        <i class="fa-solid fa-screwdriver-wrench text-2xl text-brand-600 group-hover:text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-brand-900 mb-3">التركيب والنقل</h3>
+                </div>
+                <div class="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl hover-scale text-center group transition">
+                    <div class="w-16 h-16 bg-brand-100 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-brand-500 transition">
+                        <i class="fa-solid fa-soap text-2xl text-brand-600 group-hover:text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-brand-900 mb-3">الغسيل والصيانة</h3>
+                </div>
+                <div class="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl hover-scale text-center group transition">
+                    <div class="w-16 h-16 bg-brand-100 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-brand-500 transition">
+                        <i class="fa-solid fa-store text-2xl text-brand-600 group-hover:text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-brand-900 mb-3">بيع وشراء</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Us -->
+    <section id="about" class="py-20 bg-brand-900 text-white relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="flex flex-col lg:flex-row items-center gap-12">
+                <div class="lg:w-1/2">
+                    <h2 class="text-3xl lg:text-4xl font-black mb-6">ليه تختار "وزير التكييفات"؟</h2>
+                    <p class="text-brand-100 text-lg mb-8">عشان احنا عارفين جو الصعيد، وبنوفرلك أسرع خدمة صيانة في أسيوط والمنيا بأسعار ممتازة.</p>
+                </div>
+                <div class="lg:w-1/2">
+                    <div class="bg-white/10 p-6 rounded-3xl mt-6 backdrop-blur-sm border border-white/20">
+                        <p class="text-center font-bold text-2xl mb-2">للاستفسار السريع</p>
+                        <p id="displayPhone" class="text-center text-yellow-400 text-3xl font-black" dir="ltr"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Form -->
+    <section id="contact" class="py-20 bg-white">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-gray-50 border border-gray-200 rounded-3xl shadow-xl overflow-hidden">
+                <div class="bg-brand-600 py-6 text-center">
+                    <h2 class="text-2xl font-bold text-white">احجز زيارة الآن</h2>
+                    <p class="text-brand-100">حدد محافظتك وهنكلمك فوراً</p>
+                </div>
+                <div class="p-8">
+                    <form id="contactForm" class="space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-gray-700 font-bold mb-2">الاسم</label>
+                                <input id="userName" type="text" required class="w-full px-4 py-3 rounded-lg bg-white border border-gray-300 focus:outline-none focus:border-brand-500" placeholder="الاسم">
+                            </div>
+                            <div>
+                                <label class="block text-gray-700 font-bold mb-2">رقم الموبايل</label>
+                                <input id="userPhone" type="tel" required class="w-full px-4 py-3 rounded-lg bg-white border border-gray-300 focus:outline-none focus:border-brand-500" placeholder="01xxxxxxxxx">
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-gray-700 font-bold mb-2">المحافظة</label>
+                            <select id="userLocation" class="w-full px-4 py-3 rounded-lg bg-white border border-gray-300 focus:outline-none focus:border-brand-500">
+                                <option value="أسيوط">أسيوط</option>
+                                <option value="المنيا">المنيا</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-gray-700 font-bold mb-2">الخدمة</label>
+                            <select id="userService" class="w-full px-4 py-3 rounded-lg bg-white border border-gray-300 focus:outline-none focus:border-brand-500">
+                                <option value="صيانة دورية">صيانة وغسيل</option>
+                                <option value="تركيب ونقل">تركيب ونقل</option>
+                                <option value="شحن فريون">شحن فريون</option>
+                                <option value="شراء تكييف">شراء تكييف جديد</option>
+                            </select>
+                        </div>
+
+                        <button type="submit" class="w-full bg-brand-600 text-white font-bold py-4 rounded-xl hover:bg-brand-700 transition transform hover:scale-[1.02] shadow-lg flex items-center justify-center gap-2">
+                            <i class="fa-brands fa-whatsapp text-xl"></i> إرسال واتساب
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="flex items-center justify-center gap-2 mb-6">
+                <i class="fa-solid fa-snowflake text-brand-500 text-2xl"></i>
+                <span class="font-black text-2xl">وزير التكييفات</span>
+            </div>
+            <p class="text-gray-400 mb-4">خدمة متميزة في أسيوط والمنيا</p>
+            <div class="text-gray-500 text-sm">
+                &copy; 2024 جميع الحقوق محفوظة.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating Whatsapp -->
+    <a id="floatWaBtn" href="#" target="_blank" class="whatsapp-float hover:shadow-green-500/50" title="تواصل معنا عبر واتساب">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+    <script>
+        // ===========================================
+        // منطق الكتالوج الذكي
+        // ===========================================
+        const brands = [
+            'شارب (Sharp)', 
+            'كاريير (Carrier)', 
+            'إل جي (LG)', 
+            'ميديا (Midea)', 
+            'هاير (Haier)', 
+            'تورنيدو (Tornado)', 
+            'يونيون إير (Unionaire)', 
+            'فريش (Fresh)'
+        ];
+
+        // مصفوفة لتخزين موديلات التكييفات لكل ماركة
+        const capacities = ['1.5 حصان', '2.25 حصان', '3 حصان'];
+        const types = [
+            { name: 'بارد فقط (سبليت)', icon: 'fa-snowflake', color: 'text-blue-500' },
+            { name: 'انفرتر (موفر للطاقة)', icon: 'fa-leaf', color: 'text-green-500' }
+        ];
+
+        let currentBrand = brands[0]; // الماركة الافتراضية
+
+        // 1. إنشاء أزرار الماركات
+        const tabsContainer = document.getElementById('brandTabs');
+        const gridContainer = document.getElementById('productsGrid');
+
+        function renderTabs() {
+            tabsContainer.innerHTML = '';
+            brands.forEach(brand => {
+                const btn = document.createElement('div');
+                btn.className = `tab-btn ${brand === currentBrand ? 'active' : ''}`;
+                btn.innerText = brand.split('(')[0]; // عرض الاسم العربي فقط
+                btn.onclick = () => {
+                    currentBrand = brand;
+                    renderTabs(); // تحديث الشكل النشط
+                    renderProducts(); // تحديث المنتجات
+                };
+                tabsContainer.appendChild(btn);
+            });
+        }
+
+        // 2. إنشاء كروت المنتجات
+        function renderProducts() {
+            gridContainer.innerHTML = '';
+            // إنشاء الـ 6 كروت (3 قدرات * 2 نوع)
+            capacities.forEach(cap => {
+                types.forEach(type => {
+                    const card = document.createElement('div');
+                    card.className = 'product-card p-6 flex flex-col justify-between';
+                    
+                    const productName = `تكييف ${currentBrand.split('(')[0]} - ${cap}`;
+                    const productDesc = type.name;
+                    
+                    card.innerHTML = `
+                        <div>
+                            <div class="flex justify-between items-start mb-4">
+                                <div class="bg-gray-100 p-3 rounded-full">
+                                    <i class="fa-solid ${type.icon} ${type.color} text-xl"></i>
+                                </div>
+                                <span class="bg-brand-50 text-brand-700 text-xs font-bold px-2 py-1 rounded-lg border border-brand-100">${cap}</span>
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-900 mb-1">${productName}</h3>
+                            <p class="text-gray-500 text-sm mb-4 font-bold ${type.color}">${productDesc}</p>
+                        </div>
+                        <button onclick="askPrice('${productName} ${productDesc}')" class="w-full bg-white border-2 border-brand-500 text-brand-600 font-bold py-2 rounded-lg hover:bg-brand-600 hover:text-white transition flex items-center justify-center gap-2">
+                            <i class="fa-brands fa-whatsapp"></i> اسأل عن السعر
+                        </button>
+                    `;
